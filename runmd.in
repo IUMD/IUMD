@@ -1,0 +1,57 @@
+&run_parameters
+  sim_type  = 'ion',   !type of simulation
+  start     = 'random',
+! tstart    =    0.00,    !start time
+  dt        =    2.00,    !time step (fm/c)
+!
+!For warmup steps:
+  nwgroup   =       1,     !groups
+  nwsteps   =       0,     !steps per group
+!
+!For measurement steps:
+  ngroup    =     100,     !groups
+  ntot      =      10,     !measurements per group
+  nind      =      10,     !steps between measurements
+  nptensor  =      10,     !steps between pressure tensor outputs
+  ntnorm    =     100,     !steps between temperature normalization
+  ncom      =     100,     !steps between C.O.M. motion cancellations
+!
+!Parameters controlling configuration output:
+  nckpt     =    5000,     !checkpoint frequency (number of timesteps)
+  nout      =    5000,     !configuration output frequency
+  ftype     =   'x4b',     !positions and velocities, real*4. Rev.B format.
+  append    =   .true.,    !each configuration goes to a single md.out file
+!
+!System description:
+  spec_list =
+!   0,  0.0,  1.0,    !neutrons
+  51200 ,  1.0,  1.0,    !protons
+  xmass     =  939.00,   !nucleon mass (MeV)
+  rho0      =    5.0E-02,!number density
+  kT        =    1.00,   !kT (MeV)
+! deltakT   =    1.e-4,
+! ndeltakT  =    10000,
+!
+    aspect0 = 1.0d0, 1.0d0, 1.0d0,
+    epsdot  = , , , 
+!
+!Screened Coulomb interaction parameters:
+   coulomb   = 'screened-coulomb',  !type of coulomb interaction
+   xlambda   =   10.000,    !coulomb screening length (fm)
+!  rccut     =    4.0, 'lambda',      ! coulomb cut-off (fm)
+!
+!Nuclear interaction parameters:
+  nuclear   =  '',      !type of nuclear interaction
+  aa        =  110.000,    !parameter a (MeV)
+  bb        =  -26.000,    !parameter b (MeV)
+  cc        =   24.000,    !parameter c (MeV)
+  xpacket   =    1.250,    !gaussian range parameter (fm^2)
+!
+!Random number generator:
+  irnd      =   4,         !grnd
+  iseed     =  11,
+!MPI and CUDA parameters
+!  procdim  =   2,  2,     !MPI process grid dimensions
+   nschunk  =   2,         !number of source chunks
+ thrdBlkDim =   64,  4   !CUDA thread block and block grid dimensions
+/

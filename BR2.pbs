@@ -1,0 +1,29 @@
+##
+##   MD_6.3.1 code using
+##       F90+MPI+OMP+CUDA
+##
+##
+##
+#PBS -S /bin/bash
+#PBS -N run
+#PBS -V
+#PBS -q gpu
+#PBS -l nodes=32:ppn=16,walltime=00:30:00
+#
+# -n   Total number of MPI processes (default: 1)
+# -N   Number of MPI processes per node. (XE6: 1-32; XK7: 1-16)
+# -S   Number of MPI processes per socket (XE6: 1-16; XK7: 1-16)
+# -d   Number of cores per MPI process (for OpenMP: XE6: 1-32; XK7: 1-16)
+
+ export OMP_NUM_THREADS=16
+
+ cd $PBS_O_WORKDIR
+ echo -e "\n--------------------------------------------------------------------"
+ echo "Node file: $PBS_NODEFILE"
+ echo "Nodes:"
+ cat -n $PBS_NODEFILE
+ echo -e "\n--------------------------------------------------------------------"
+ checkjob -v $PBS_JOBID
+ echo -e "\n--------------------------------------------------------------------"
+
+ aprun  -n 32 -N 1 -d 16 -cc none  ~/iumd_mpi_omp_cuda
